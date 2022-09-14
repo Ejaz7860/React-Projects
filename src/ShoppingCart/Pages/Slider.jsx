@@ -52,12 +52,12 @@ const Wrapper = styled.div`
  height: 100%;
 `;
 
-const SlideC =  styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-`;
+// const SlideC =  styled.div`
+// display: flex;
+// justify-content: center;
+// align-items: center;
+// `;
 const ImgC = styled.div`
 flex: 1;
 `;
-const Info = styled.div``;
+// const Info = styled.div``;

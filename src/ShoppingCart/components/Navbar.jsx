@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 import { Badge } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -13,16 +14,31 @@ const Navbar = () => {
           <SearchContainer>
             {/* <input style={{border:"none"}} type="text" /> search */}
             <Input />
-            <SearchIcon style={{color:"gray", fontSize:"16px"}} />
+            <SearchIcon style={{ color: "gray", fontSize: "16px" }} />
           </SearchContainer>
         </Left>
         <Center>
           <Center>
-            <Logo>S-Cart.</Logo>
+            <NavLink to={"/"} >
+              {" "}
+              <Logo>S-Cart.</Logo>
+            </NavLink>
           </Center>
         </Center>
         <Right>
-          <MenuItem>Register</MenuItem>
+          <NavLink
+            style={{ textDecoration: "none", color: "#111" }}
+            to={"/register"}
+            className={({isActive})=> "nav-link" + (isActive ? "activated" : "") }
+          >
+            <MenuItem>Register</MenuItem>
+          </NavLink>
+          <NavLink
+            style={{ textDecoration: "none", color: "#111" }}
+            to={"/login"}
+          >
+            <MenuItem>Login</MenuItem>
+          </NavLink>
           <MenuItem>Login</MenuItem>
           <MenuItem>
             <Badge badgeContent={4} color="primary">
@@ -35,9 +51,14 @@ const Navbar = () => {
   );
 };
 
+
+// background: aliceblue;
+// padding: 6px 19px;
+// border-radius: 4px;
 const Container = styled.div`
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   height: 60px;
+  width: 100% !important;
 `;
 
 const Wrapper = styled.div`
