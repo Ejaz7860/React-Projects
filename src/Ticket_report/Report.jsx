@@ -342,6 +342,7 @@ const Report = () => {
                 userid: item.uid,
                 name: current.name,
                 status: current.status + " " + item.status,
+                date:current.date1,
               };
 
           return result;
