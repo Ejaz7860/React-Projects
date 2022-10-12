@@ -3,13 +3,14 @@ import styled from "styled-components";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { useEffect } from "react";
+import { Spinner } from "react-bootstrap";
 
 const Tableview = () => {
   const [data, setData] = useState([]);
   const [Month, setMonth] = useState("");
+  const [Loader, setLoader] = useState(false)
 
   const getFunc = (e) => {
-    console.log("calling du");
     e.preventDefault();
     const data = {
       sid: 258,
@@ -29,6 +30,10 @@ const Tableview = () => {
       .catch((err) => {
         console.log(err);
       });
+
+      setLoader(true)
+
+
   };
 
   // get Current MM-YYY
@@ -74,20 +79,21 @@ const Tableview = () => {
                   onChange={(e) => setMonth(e.target.value)}
                   className="mm__yyyy"
                 />
-                <button
+               { Month !='' ?  <button
                   className="btn__check"
                   onClick={(e) => {
                     getFunc(e);
                   }}
                 >
-                  check
-                </button>
+                  Submit
+                </button>: null }
               </div>
             </div>
           </div>
         </div>
         <table>
-          {data.length > 0 ? (
+          { Month !=""  ?
+          data.length > 0 ? (
             <thead>
               <tr>
                 <th style={{ textAlign: "center" }} rowspan="3">
@@ -144,7 +150,7 @@ const Tableview = () => {
             </thead>
           ) : (
             "No Report"
-          )}
+          ) :"Selcet Month/Year and Submit button" }
 
           <tbody>
             {/* Map data */}
@@ -269,7 +275,7 @@ const Wrapper = styled.div`
 
   td,
   th {
-    border: 1px solid #f7faf7;
+    border: 1px solid #ff93cd;
     text-align: left;
     padding: 8px;
   }
