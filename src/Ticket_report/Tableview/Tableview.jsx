@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { Button } from "@mui/material";
 import { useEffect } from "react";
 
 const Tableview = () => {
   const [data, setData] = useState([]);
-  useEffect(() => {
+  const [Month, setMonth] = useState("");
+
+  const getFunc = (e) => {
+    console.log("calling du");
+    e.preventDefault();
+    const data = {
+      sid: 258,
+      month: Month,
+    };
     axios({
       method: "POST",
-      data: {
-        sid: 258,
-      },
+      data,
       url: "http://localhost:8080/api/tickets/reports",
       headers: {
         Authorization: "#$laksdfnlknoea#$@$%^&%$",
@@ -22,14 +29,35 @@ const Tableview = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  // get Current MM-YYY
+
+  useEffect(() => {
+    var today = new Date();
+    var dd = today.getDate();
+
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    today = yyyy + "-" + mm;
+    console.log(today);
   }, []);
 
   return (
     <Container>
       <Wrapper>
+        {/* Tab */}
         <div className="inner__container">
           <div className="by__name">
-            <input placeholder="Search by Name" type="text" />
+            <Button variant="outlined">Ticket Created Report</Button>
+            <Button variant="outlined">Ticket Assigned Report</Button>{" "}
           </div>
           <div
             style={{
@@ -38,91 +66,143 @@ const Tableview = () => {
               justifyContent: "space-between",
             }}
           >
+            {/* Year and Month wise report */}
             <div>
-              <label style={{ fontWeight: "bold" }} htmlFor="#">
-                From -{" "}
-              </label>
-              <input type="date" />
-            </div>
-            <div style={{ marginLeft: "18px" }}>
-              <label style={{ fontWeight: "bold" }} htmlFor="#">
-                To -{" "}
-              </label>
-              <input type="date" />
+              <div>
+                <input
+                  type="month"
+                  onChange={(e) => setMonth(e.target.value)}
+                  className="mm__yyyy"
+                />
+                <button
+                  className="btn__check"
+                  onClick={(e) => {
+                    getFunc(e);
+                  }}
+                >
+                  check
+                </button>
+              </div>
             </div>
           </div>
         </div>
         <table>
-          <thead>
-            <tr>
-              <th style={{ textAlign: "center" }} rowspan="3">
-                S.No
-              </th>
-              <th style={{ textAlign: "center" }} rowspan="3">
-                Employe Name
-              </th>
-            </tr>
-            <tr
-              style={{
-                textAlign: "center",
-              }}
-            >
-              <th style={{ textAlign: "center" }} colspan="4">
-                Ticket Created
-              </th>
-            </tr>
+          {data.length > 0 ? (
+            <thead>
+              <tr>
+                <th style={{ textAlign: "center" }} rowspan="3">
+                  S.No
+                </th>
+                <th style={{ textAlign: "center" }} rowspan="3">
+                  Ticket Created By
+                </th>
+              </tr>
+              <tr
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                <th style={{ textAlign: "center" }} colspan="4">
+                  Ticket Created
+                </th>
+              </tr>
 
-            <tr>
-              <th style={{ textAlign: "center",color:"#111" }}>Open</th>
-              <th style={{ textAlign: "center"}}>Closed</th>
-              <th style={{ textAlign: "center" }}>Hold</th>
-              <th style={{ textAlign: "center" }}>Date</th>
-            </tr>
-          </thead>
+              <tr>
+                <th
+                  style={{
+                    textAlign: "center",
+                    backgroundColor: "rgb(219, 248, 113)",
+                  }}
+                >
+                  All
+                </th>
+                <th
+                  style={{
+                    textAlign: "center",
+                    backgroundColor: "rgb(255, 201, 201)",
+                  }}
+                >
+                  Open
+                </th>
+                <th
+                  style={{
+                    textAlign: "center",
+                    backgroundColor: "rgb(190, 254, 199)",
+                  }}
+                >
+                  Closed
+                </th>
+                <th
+                  style={{
+                    textAlign: "center",
+                    backgroundColor: "#efe9e68c",
+                  }}
+                >
+                  Hold
+                </th>
+              </tr>
+            </thead>
+          ) : (
+            "No Report"
+          )}
 
           <tbody>
             {/* Map data */}
-            {data.map((item, idx) => {
-              return (
-                <tr className="tr" key={idx} onClick={(idx)=>{ console.log(idx) }}>
-                  <td style={{ textAlign: "center" }} rowspan="1">
-                    {idx + 1}
-                  </td>
+            {data
+              ? data.map((item, idx) => {
+                  return (
+                    <tr
+                      className="tr"
+                      key={idx}
+                      onClick={(idx) => {
+                        console.log(idx);
+                      }}
+                    >
+                      <td style={{ textAlign: "center" }} rowspan="1">
+                        {idx + 1}
+                      </td>
 
-                  {/* USER TICKET CREATED NAME */}
-                  <td style={{ textAlign: "center", fontWeight:"bold" }} rowspan="1">
-                    {item.name}
-                  </td>
+                      {/* USER TICKET CREATED NAME */}
+                      <td style={{ textAlign: "center" }} rowspan="1">
+                        {item.name ? item.name : "_"}
+                      </td>
 
+                      {/* OPEN, CLOSED, HOLD STATUS  */}
+                      {item.status
+                        ? item.status.split(",").map((item, idx) => {
+                            return (
+                              <>
+                                <td style={{ textAlign: "center" }} rowspan="1">
+                                  {item
+                                    ? (item.match(/Open/g) || []).length +
+                                      (item.match(/Closed/g) || []).length +
+                                      (item.match(/Hold/g) || []).length
+                                    : null}
+                                </td>
+                                <td style={{ textAlign: "center" }} rowspan="1">
+                                  {(item.match(/Open/g) || []).length}
+                                </td>
 
-                 {/* OPEN, CLOSED, HOLD STATUS  */}
-                  {item.status
-                    ? item.status.split(",").map((item, idx) => {
-                        return (
-                          <>
-                            <td style={{ textAlign: "center" }} rowspan="1">
-                              {(item.match(/Open/g) || []).length}
-                            </td>
+                                <td style={{ textAlign: "center" }} rowspan="1">
+                                  {(item.match(/Closed/g) || []).length}
+                                </td>
 
-                            <td style={{ textAlign: "center" }} rowspan="1">
-                              {(item.match(/Closed/g) || []).length}
-                            </td>
+                                <td style={{ textAlign: "center" }} rowspan="1">
+                                  {(item.match(/Hold/g) || []).length}
+                                </td>
+                              </>
+                            );
+                          })
+                        : null}
 
-                            <td style={{ textAlign: "center" }} rowspan="1">
-                              {(item.match(/Hold/g) || []).length}
-                            </td>
-                          </>
-                        );
-                      })
-                    : null}
-
-                    {/* DATE */}
-                  <td style={{ textAlign: "center" }} rowspan="1">
-                    {item.date1 ? item.date1.substring(0, 11) : "_"}
-                  </td>
-                </tr>
-              );
-            })}
+                      {/* DATE
+              <td style={{ textAlign: "center" }} rowspan="1">
+                {item.date1 ? item.date1.substring(0, 11) : "_"}
+              </td> */}
+                    </tr>
+                  );
+                })
+              : "NO REPORT"}
           </tbody>
         </table>
       </Wrapper>
@@ -133,24 +213,44 @@ const Tableview = () => {
 export default Tableview;
 
 const Container = styled.div`
-  max-width: 800px;
+  position: relative;
+  max-width: 1000px;
+  height: 100vh;
   margin: 0 auto;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  height: 100%;
 `;
 
 const Wrapper = styled.div`
   max-width: 100%;
-  margin: 0 auto;
-  height: 100vh;
-  height: 100vh;
-  overflow: scroll;
 
   .inner__container {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 12px 10px;
+
+    .mm__yyyy {
+      height: 40px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+      padding: 0 4px;
+      width: 140px;
+      color: #fff;
+      background-color: darkblue;
+    }
+
+    .btn__check {
+      height: 40px;
+      border-radius: 0 4px 4px 0;
+
+      background: #5de8cf;
+      width: 51px;
+      border: none;
+      color: #fff;
+      width: 60px;
+      height: 40px;
+    }
   }
   h1 {
     text-align: center;
@@ -162,25 +262,26 @@ const Wrapper = styled.div`
     font-family: arial, sans-serif;
     letter-spacing: 0.1rem;
     border-collapse: collapse;
+    font-weight: 700;
+    color: #222;
     width: 100%;
   }
 
   td,
   th {
-    border: 1px solid #eee;
+    border: 1px solid #f7faf7;
     text-align: left;
     padding: 8px;
   }
-  td{
+  td {
     margin: 5px 0;
   }
 
-  .tr{
+  .tr {
     height: 50px;
   }
 
   .tr:nth-child(even) {
-    background-color: #4659e5;
-    color: #fff;
+    background-color: #cdffea;
   }
 `;

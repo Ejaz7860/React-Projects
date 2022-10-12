@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const Header = () => {
+const Header = ({title, Dashboard}) => {
   return (
     <Container>
       <Wrapper>
-        <p>Report</p>
+        <p>{title ? title : null}</p>
       </Wrapper>
     </Container>
   );

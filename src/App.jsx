@@ -8,9 +8,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import Home from "./UseMemo/components/Home"
 // import Home from "./react-spring/Test"
 // import  USEReducer from "./useReducer/Reducer"
-import Ticket from "./Ticket_report/Report"
-import Tab from "./Ticket_report/Tableview/Tableview"
-
+// import Ticket from "./Ticket_report/Report"
+// import Tab from "./Ticket_report/Tableview/Tableview";
+import DashboardT from "./Ticket_report/Pages/Dashboard.jsx"
 const App = () => {
   return (
     <>
@@ -24,7 +24,7 @@ const App = () => {
           {/* <Route path="/tabs" element={<Tabs/>}/> */}
           {/* <Route path="/holiday" element={<Dashboard/>} /> */}
           {/* <Route path="/report" element={<Ticket/>} /> */}
-          <Route path="/report" element={<Tab/>} />
+          <Route path="/report" element={<DashboardT/>} />
 
         </Routes>
       </BrowserRouter>
