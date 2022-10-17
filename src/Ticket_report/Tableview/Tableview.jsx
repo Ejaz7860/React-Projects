@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { Button } from "@mui/material";
 import { useEffect } from "react";
-import { Spinner } from "react-bootstrap";
 
 const Tableview = () => {
   const [data, setData] = useState([]);
@@ -19,7 +17,7 @@ const Tableview = () => {
     axios({
       method: "POST",
       data,
-      url: "http://localhost:8080/api/tickets/reports",
+      url: "http://localhost:8080/api/tickets/created/report",
       headers: {
         Authorization: "#$laksdfnlknoea#$@$%^&%$",
       },
@@ -37,7 +35,6 @@ const Tableview = () => {
   };
 
   // get Current MM-YYY
-
   useEffect(() => {
     var today = new Date();
     var dd = today.getDate();
@@ -60,10 +57,10 @@ const Tableview = () => {
       <Wrapper>
         {/* Tab */}
         <div className="inner__container">
-          <div className="by__name">
+          {/* <div className="by__name">
             <Button variant="outlined">Ticket Created Report</Button>
             <Button variant="outlined">Ticket Assigned Report</Button>{" "}
-          </div>
+          </div> */}
           <div
             style={{
               display: "flex",
@@ -92,7 +89,7 @@ const Tableview = () => {
           </div>
         </div>
         <table>
-          { Month !=""  ?
+          { Month !==""  ?
           data.length > 0 ? (
             <thead>
               <tr>
