@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import Dashboard from "./holiday/Dashboard"
 // import Home from "./UseMemo/components/Home"
 // import Home from "./react-spring/Test"
-// import  USEReducer from "./useReducer/Reducer"
+import  USEReducer from "./useReducer/Reducer"
 // import Ticket from "./Ticket_report/Report"
 // import Tab from "./Ticket_report/Tableview/Tableview";
 import DashboardT from "./Ticket_report/Pages/Dashboard.jsx"
@@ -16,7 +16,7 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
+          {/* <Route path="/" element={<h1></h1>} /> */}
           {/* <Route path="/Dashboard" element={<Dashboard/>}>
             <Route index element={<Hero/>}/>
             <Route path="contact" element={<Contactus/>} /> */}
@@ -24,7 +24,7 @@ const App = () => {
           {/* <Route path="/tabs" element={<Tabs/>}/> */}
           {/* <Route path="/holiday" element={<Dashboard/>} /> */}
           {/* <Route path="/report" element={<Ticket/>} /> */}
-          <Route path="/report" element={<DashboardT/>} />
+          {/* <Route path="/report" element={<DashboardT/>} /> */}
 
         </Routes>
       </BrowserRouter>
