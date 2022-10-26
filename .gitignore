@@ -5,7 +5,8 @@
 /.pnp
 .pnp.js
 /src/utils/utils.js
-/src/json
+/src/json/data1.js
+/src/Ticket_report/Tableview/data.js
 
 # testing
 /coverage
