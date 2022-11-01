@@ -1,0 +1,32 @@
+@import "color.scss";
+
+.Header {
+  width: 100%;
+  height: 60px;
+  left: 0;
+  right: 0;
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  display: flex;
+  background-color: $datkwhite;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  .nav {
+    margin-right: 1rem;
+    font-size: 1rem;
+    padding: 6px;
+    font-weight: 600;
+    transition: all 0.3s linear;
+
+    &:hover {
+      transform: scale(1);
+      color: white;
+      border-radius: 2px;
+      background: linear-gradient($liner1, $liner2);
+    }
+    
+  }
+}

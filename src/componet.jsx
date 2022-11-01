@@ -8,6 +8,8 @@ const componet = () => {
     <section className='Home'>
         <Link title='Landing Page' className='LandingPage' target='_blank' to={"/plywood"}>Landing Page</Link>
         <Link title='Crypto App' className='LandingPage' target='_blank' to={"/Crypto"}>Crypto App</Link>
+        <Link title='Crypto App' className='LandingPage' target='_blank' to={"/Camera"}>Ecom</Link>
+
 
     </section>
     </>
