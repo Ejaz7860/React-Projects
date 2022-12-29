@@ -5,15 +5,14 @@ import {
   Badge,
   SimpleGrid,
   Button,
+  Heading
 } from "@chakra-ui/react";
 import React from "react";
 import Header from "./Header";
 import Sidebar from "./sidebar";
 import Img1 from "../Assests/c1.jpg";
 import Img2 from "../Assests/c2.jpg";
-
 import Img3 from "../Assests/c3.jpg";
-
 import Img4 from "../Assests/c4.jpg";
 import Img5 from "../Assests/c5.jpg";
 import Img6 from "../Assests/c6.jpg";
